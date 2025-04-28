@@ -1,0 +1,19 @@
+public class Reservation {
+    private int id;
+    private String nomClient;
+    private int seanceId;
+    private int nombrePlaces;
+
+    // Constructeur, getters et setters
+    public Reservation(int id, String nomClient, int seanceId, int nombrePlaces) {
+        this.id = id;
+        this.nomClient = nomClient;
+        this.seanceId = seanceId;
+        this.nombrePlaces = nombrePlaces;
+    }
+
+    public int getId() { return id; }
+    public String getNomClient() { return nomClient; }
+    public int getSeanceId() { return seanceId; }
+    public int getNombrePlaces() { return nombrePlaces; }
+}

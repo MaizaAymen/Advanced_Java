@@ -1,0 +1,49 @@
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    private final String url="jdbc:postgresql://localhost/cinema";
+    private final String user="postgres";
+    private final String password="aymen";
+    public Connection connect(){
+        Connection conn = null;
+        try{
+            conn =DriverManager.getConnection(url,user,password);
+            if(conn!=null){
+                System.out.println("connected to the database");
+            }else {
+                System.out.println("failed to make connection");
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
+
+public void aymen(){
+    String sql = "select nom_client from reservation ";
+    try(Connection conn =this.connect();
+        Statement stmt = conn.createStatement();
+        ResultSet rs =stmt.executeQuery(sql)
+
+
+    ){
+while(rs.next()){
+    System.out.println(rs.getString("name"));
+}
+    }catch (){
+
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+}
+    public static void main(String[] args) {
+        Main app = new Main();
+        app.connect();
+
+
+
+    }
+}

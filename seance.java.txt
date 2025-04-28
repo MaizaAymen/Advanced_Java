@@ -1,0 +1,61 @@
+import java.sql.Time;
+import java.util.Date;
+
+public class seance{
+    private int id;
+    private String film;
+    private String date_seance ;
+    private String heure ;
+    private int places_disponibles;
+
+
+    public seance(int id ,String film, String date_seance, String heure, int places_disponibles) {
+        this.id=id;
+        this.film = film;
+        this.date_seance = date_seance;
+        this.heure = heure;
+        this.places_disponibles = places_disponibles;
+    }
+
+    public void setFilm(String film) {
+        this.film = film;
+    }
+
+    public void setDate_seance(String date_seance) {
+        this.date_seance = date_seance;
+    }
+
+    public void setPlaces_disponibles(int places_disponibles) {
+        this.places_disponibles = places_disponibles;
+    }
+
+    public void setHeure(String heure) {
+        this.heure = heure;
+    }
+
+    public String getFilm() {
+        return film;
+    }
+
+    public String getDate_seance() {
+        return date_seance;
+    }
+
+    public String getHeure() {
+        return heure;
+    }
+
+    public int getPlaces_disponibles() {
+        return places_disponibles;
+    }
+
+    @Override
+    public String toString() {
+        return "seance{" +
+                "film='" + film + '\'' +
+                ", date_seance=" + date_seance +
+                ", heure=" + heure +
+                ", places_disponibles=" + places_disponibles +
+                '}';
+    }
+}

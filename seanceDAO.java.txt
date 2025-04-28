@@ -1,0 +1,39 @@
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SeanceDao {
+    private Connection connection;
+
+    public SeanceDao(Connection connection) {
+        this.connection = connection;
+    }
+
+    public List<seance> listerSeances() throws SQLException {
+        List<seance> seances = new ArrayList<>();
+        String query = "SELECT * FROM seance";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                seance seance = new seance(
+                        rs.getInt("id"),
+                        rs.getString("film"),
+                        rs.getDate("date_seance").toString(),
+                        rs.getTime("heure").toString(),
+                        rs.getInt("places_disponibles")
+                );
+                seances.add(seance);
+            }
+        }
+        return seances;
+    }
+
+    public void mettreAJourPlaces(int seanceId, int placesDisponibles) throws SQLException {
+        String updateQuery = "UPDATE seance SET places_disponibles = ? WHERE id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {
+            pstmt.setInt(1, placesDisponibles);
+            pstmt.setInt(2, seanceId);
+            pstmt.executeUpdate();
+        }
+    }
+}

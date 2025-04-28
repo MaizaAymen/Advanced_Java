@@ -1,0 +1,40 @@
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReservationDAO {
+    private Connection connection;
+
+    public ReservationDAO(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void ajouterReservation(String nomClient, int seanceId, int nombrePlaces) throws SQLException {
+        String Query = "INSERT INTO reservation (nom_client, seance_id, nombre_places) VALUES (?, ?, ?)";
+        try (PreparedStatement ahmed = connection.prepareStatement(Query)) {
+            ahmed.setString(1, nomClient);
+            ahmed.setInt(2, seanceId);
+            ahmed.setInt(3, nombrePlaces);
+            ahmed.executeUpdate();
+        }
+    }
+    public List<Reservation> getReservationsParClient(String nomClient) throws SQLException {
+        List<Reservation> reservations = new ArrayList<>();
+        String query = "SELECT * FROM reservation WHERE nom_client = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, nomClient);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Reservation reservation = new Reservation(
+                            rs.getInt("id"),
+                            rs.getString("nom_client"),
+                            rs.getInt("seance_id"),
+                            rs.getInt("nombre_places")
+                    );
+                    reservations.add(reservation);
+                }
+            }
+        }
+        return reservations;
+    }
+}
